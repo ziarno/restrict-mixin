@@ -3,6 +3,11 @@ RestrictMixin
 
 A mixin for [`mdg:validated-method`](https://github.com/meteor/validated-method) to throw errors on specified conditions before the `run` function.
 
+Install
+-------
+
+`meteor add ziarno:restrict-mixin`
+
 Usage
 -----
 
