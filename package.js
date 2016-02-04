@@ -1,7 +1,7 @@
 Package.describe({
   name: 'ziarno:restrict-mixin',
   version: '0.0.3',
-  summary: 'A mixin to mdf:validate-method used to throw errors if condition pass',
+  summary: 'A mixin to mdd:validated-method used to throw errors if condition pass',
   git: 'https://github.com/ziarno7/restrict-mixin',
   documentation: 'README.md'
 });
