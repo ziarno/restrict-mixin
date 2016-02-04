@@ -18,16 +18,16 @@ SomeCollection.methods.someMethod = new ValidateMethod({
     mixins: [RestrictMixin],
     restrictions: [
         {
-          condition: function (data) {
+          condition: function (args) {
             return !this.userId;
           },
-          error: function (data) {
+          error: function (args) {
             return new Meteor.Error(this.name + 'unauthorized', 'You must be logged in');
           }
         }
     ],
     validate,
-    run: function (data) {}
+    run: function (args) {}
 });
 ```
 
@@ -35,10 +35,10 @@ You can also create mixins:
 
 ```js
 var isLoggedInMixin = RestrictMixin.createMixin({
-    condition: function (data) {
+    condition: function (args) {
         return !this.userId;
     },
-    error: function (data) {
+    error: function (args) {
         return new Meteor.Error(this.name + '.unauthorized', 'You must be logged in');
     }
 });
@@ -47,7 +47,7 @@ SomeCollection.methods.someMethod = new ValidateMethod({
     name,
     mixins: [isLoggedInMixin],
     validate,
-    run: function (data) {
+    run: function (args) {
       //will not run if !this.userId
     }
 });
@@ -56,7 +56,7 @@ SomeCollection.methods.someMethod = new ValidateMethod({
 Notes:
 - `restrictions` can be an array or object (also as value passed to `createMethod`)
 - `condition` and `error` can be functions or objects
-- `condition` and `error` functions are called in the correct context (`this` is the same as in the `run` method) and get passed the same arguments (which is `data` passed to the method)
+- `condition` and `error` functions are called in the correct context (`this` is the same as in the `run` method) and get passed the same arguments (which is `args` passed to the method)
 
 Environment
 -----------
@@ -70,17 +70,17 @@ SomeCollection.methods.someMethod = new ValidateMethod({
     mixins: [RestrictMixin],
     restrictions: [
         {
-          condition: function (someUserId) {
-            return !Meteor.users.find(someUserId);
+          condition: function (args) {
+            return !Meteor.users.find(args.someUserId);
           },
-          error: function (data) {
+          error: function (args) {
             return new Meteor.Error(this.name + 'notFound', 'User not found');
           },
           env: 'server-only' //this restricion will *not* run if this.isSimulation
         }
     ],
     validate,
-    run: function (data) {}
+    run: function (args) {}
 });
 ```
 
